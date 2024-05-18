@@ -24,8 +24,6 @@ public:
 
     void clear();
 
-    void print();
-
     void insertAtHead(T val);
 
     void insertAtTail(T val);
@@ -50,6 +48,7 @@ public:
 
     void swap(int firstItemIdx, int secondItemIdx);
 
+    void print();
 };
 
 
@@ -89,10 +88,6 @@ void Single_Linked_List<T>::clear() {
     tail = nullptr;
     length = 0;
 }
-
-
-template<class T>
-void Single_Linked_List<T>::print() {}
 
 
 template<class T>
@@ -307,4 +302,62 @@ T Single_Linked_List<T>::retrieveAt(int index) {
 
 
 template<class T>
-void Single_Linked_List<T>::swap(int firstItemIdx, int secondItemIdx) {}
+void Single_Linked_List<T>::swap(int firstItemIdx, int secondItemIdx) {
+    if (firstItemIdx < 0 || firstItemIdx >= length || secondItemIdx < 0 || secondItemIdx >= length) {
+        cout << "Invalid indexes";
+        return;
+    } else if (firstItemIdx == secondItemIdx) {
+        return;
+    } else {
+        Node<T> *node1 = head;
+        Node<T> *node2 = head;
+        Node<T> *prevnode1 = nullptr;
+        Node<T> *prevnode2 = nullptr;
+
+        for (int i = 0; i < firstItemIdx; i++) {
+            prevnode1 = node1;
+            node1 = node1->next;
+        }
+        for (int i = 0; i < secondItemIdx; i++) {
+            prevnode2 = node2;
+            node2 = node2->next;
+        }
+
+        if (prevnode1 != nullptr) {
+            prevnode1->next = node2;
+        } else {
+            head = node2;
+        }
+
+        if (prevnode2 != nullptr) {
+            prevnode2->next = node1;
+        } else {
+            head = node1;
+        }
+
+        if (node1->next = nullptr) {
+            tail = node2;
+        }
+        if (node2->next = nullptr) {
+            tail = node1;
+        }
+        Node<T> *tmp = node2->next;
+        node2->next = node1->next;
+        node1->next = tmp;
+    }
+}
+
+
+template<class T>
+void Single_Linked_List<T>::print() {
+    if (length == 0) {
+        cout << "LIST IS EMPTY" << endl;
+        return;
+    }
+    Node<T> *temp = head;
+    while (temp != nullptr) {
+        cout << temp->data << " ";
+        temp = temp->next;
+    }
+    cout << endl;
+}

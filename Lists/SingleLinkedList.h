@@ -292,13 +292,11 @@ T Single_Linked_List<T>::retrieveAt(int index) {
     if (index < 0 || index >= length) {
         cout << "Index out of range ";
         return -1;
-    }
-    else if (index == 0) {
+    } else if (index == 0) {
         return head->data;
-    }
-    else if (index == length - 1) {
+    } else if (index == length - 1) {
         return tail->data;
-    } else{
+    } else {
         Node<T> current = head;
         for (int i = 0; i < index; i++) {
             current = current->next;

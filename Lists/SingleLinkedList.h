@@ -1,18 +1,17 @@
-#include <bits/stdc++.h>
-
+#include <iostream>
 using namespace std;
 
 template<class T>
 struct Node {
     T data;
-    Node<T> *next;
+    Node<T>* next;
 };
 
 template<class T>
 class Single_Linked_List {
 private:
-    Node<T> *head, *tail;
-    int maxSize;
+    Node<T>* head;
+    Node<T>* tail;
     int length;
 
 public:
@@ -61,25 +60,17 @@ Single_Linked_List<T>::Single_Linked_List() {
 
 template<class T>
 Single_Linked_List<T>::~Single_Linked_List() {
-    Node<T> *temp = new Node<T>;
-    while (head != nullptr) {
-        temp = head;
-        head = head->next;
-        delete temp;
-    }
-    tail = nullptr;
-    length = 0;
+    clear();
 }
-
 
 template<class T>
 bool Single_Linked_List<T>::isEmpty() {
-    return (length == 0);
+    return length == 0;
 }
 
 template<class T>
 void Single_Linked_List<T>::clear() {
-    Node<T> temp = new Node<T>;
+    Node<T>* temp;
     while (head != nullptr) {
         temp = head;
         head = head->next;
@@ -89,10 +80,9 @@ void Single_Linked_List<T>::clear() {
     length = 0;
 }
 
-
 template<class T>
 void Single_Linked_List<T>::insertAtHead(T val) {
-    Node<T> temp = new Node<T>;
+    Node<T>* temp = new Node<T>;
     temp->data = val;
     temp->next = head;
     head = temp;
@@ -102,10 +92,9 @@ void Single_Linked_List<T>::insertAtHead(T val) {
     length++;
 }
 
-
 template<class T>
 void Single_Linked_List<T>::insertAtTail(T val) {
-    Node<T> temp = new Node<T>;
+    Node<T>* temp = new Node<T>;
     temp->data = val;
     temp->next = nullptr;
     if (head == nullptr) {
@@ -118,235 +107,190 @@ void Single_Linked_List<T>::insertAtTail(T val) {
     length++;
 }
 
-
 template<class T>
 void Single_Linked_List<T>::insertAt(T val, int index) {
-    Node<T> newnode = new Node<T>;
-    newnode->data = val;
-    newnode->next = nullptr;
+    if (index < 0 || index > length) {
+        cout << "Invalid index" << endl;
+        return;
+    }
     if (index == 0) {
         insertAtHead(val);
     } else if (index == length) {
         insertAtTail(val);
     } else {
-        Node<T> *current = head;
-        int pos = 0;    // we can use for loop
-        while (current != nullptr && pos < index - 1) {
+        Node<T>* newNode = new Node<T>;
+        newNode->data = val;
+        Node<T>* current = head;
+        for (int i = 0; i < index - 1; i++) {
             current = current->next;
-            pos++;
         }
-        if (current == nullptr) {
-            cout << "invalid index" << endl;
-            return;
-        } else {
-            newnode->next = current->next;
-            current->next = newnode;
-        }
-
+        newNode->next = current->next;
+        current->next = newNode;
+        length++;
     }
-    length++;
 }
-
 
 template<class T>
 bool Single_Linked_List<T>::isExist(T val) {
-    if (length >= 1 && (tail->data == val || head->data == val))
-        return true;
-    else {
-        Node<T> *current = head;
-        while (current != nullptr) {
-            for (int i = 0; i < length; i++) {
-                if (current->data = val) {
-                    return true;
-                }
-                current = current->next;
-            }
+    Node<T>* current = head;
+    while (current != nullptr) {
+        if (current->data == val) {
+            return true;
         }
+        current = current->next;
     }
     return false;
 }
-
 
 template<class T>
 bool Single_Linked_List<T>::isItemAtEqual(T val, int index) {
     if (index < 0 || index >= length) {
-        cout << "Index out of range ";
+        cout << "Index out of range" << endl;
         return false;
-    } else if (index == 0) {
-        return head->data == val;
-    } else if (index == length - 1) {
-        return tail->data == val;
-    } else {
-        Node<T> *current = head;
-        while (current != nullptr) {
-            for (int i = 0; i < index; i++) {
-                current = current->next;
-            }
-            return current->data = val;
-        }
     }
-    return false;
+    Node<T>* current = head;
+    for (int i = 0; i < index; i++) {
+        current = current->next;
+    }
+    return current->data == val;
 }
-
 
 template<class T>
 int Single_Linked_List<T>::linkedListSize() {
     return length;
 }
 
-
 template<class T>
 void Single_Linked_List<T>::removeAt(int index) {
-    Node<T> *temp = new Node<T>;
     if (index < 0 || index >= length) {
-        cout << "Index out of range ";
+        cout << "Index out of range" << endl;
         return;
     }
-    if (length == 0) {
-        cout << "LIST IS Empty";
-        return;
-    } else if (length == 1 || index == 1) {
+    if (index == 0) {
         removeAtHead();
     } else if (index == length - 1) {
         removeAtTail();
     } else {
-        Node<T> *current = head;
-        for (int i = 0; i < index; i++) {
-            temp = current;
+        Node<T>* current = head;
+        for (int i = 0; i < index - 1; i++) {
             current = current->next;
         }
-        temp->next = current->next;
-        delete current;
+        Node<T>* temp = current->next;
+        current->next = temp->next;
+        delete temp;
         length--;
     }
 }
 
-
 template<class T>
 void Single_Linked_List<T>::removeAtHead() {
-    Node<T> *temp = head;
     if (length == 0) {
-        cout << "LIST IS Empty";
+        cout << "List is empty" << endl;
         return;
-    } else if (length == 1) {
-        head = nullptr;
-        tail = nullptr;
-        delete temp;
-    } else {
-        head = head->next;
-        delete temp;
     }
+    Node<T>* temp = head;
+    head = head->next;
+    delete temp;
     length--;
+    if (length == 0) {
+        tail = nullptr;
+    }
 }
-
 
 template<class T>
 void Single_Linked_List<T>::removeAtTail() {
-    Node<T> *temp = head;
     if (length == 0) {
-        cout << "LIST IS Empty";
+        cout << "List is empty" << endl;
         return;
-    } else if (length == 1) {
-        head = nullptr;
-        tail = nullptr;
-        delete temp;
+    }
+    if (length == 1) {
+        delete head;
+        head = tail = nullptr;
     } else {
-        Node<T> *current = head;
+        Node<T>* current = head;
         while (current->next != tail) {
             current = current->next;
         }
-        current->next = nullptr;
+        delete tail;
         tail = current;
-        delete temp;
+        tail->next = nullptr;
     }
     length--;
 }
-
 
 template<class T>
 void Single_Linked_List<T>::replaceAt(T newVal, int index) {
     if (index < 0 || index >= length) {
-        cout << "Index out of range ";
+        cout << "Index out of range" << endl;
         return;
-    } else if (index == 0) {
-        head->data = newVal;
-    } else if (index = length - 1) {
-        tail->data = newVal;
-    } else {
-        Node<T> current = head;
-        for (int i = 0; i < index; i++) {
-            current = current->next;
-        }
-        current->data = newVal;
     }
+    Node<T>* current = head;
+    for (int i = 0; i < index; i++) {
+        current = current->next;
+    }
+    current->data = newVal;
 }
-
 
 template<class T>
 T Single_Linked_List<T>::retrieveAt(int index) {
     if (index < 0 || index >= length) {
-        cout << "Index out of range ";
-        return -1;
-    } else if (index == 0) {
-        return head->data;
-    } else if (index == length - 1) {
-        return tail->data;
-    } else {
-        Node<T> current = head;
-        for (int i = 0; i < index; i++) {
-            current = current->next;
-        }
-        return current->data;
+        cout << "Index out of range" << endl;
+        return T();  // Return default value of T
     }
+    Node<T>* current = head;
+    for (int i = 0; i < index; i++) {
+        current = current->next;
+    }
+    return current->data;
 }
-
 
 template<class T>
 void Single_Linked_List<T>::swap(int firstItemIdx, int secondItemIdx) {
     if (firstItemIdx < 0 || firstItemIdx >= length || secondItemIdx < 0 || secondItemIdx >= length) {
-        cout << "Invalid indexes";
+        cout << "Invalid indexes" << endl;
         return;
-    } else if (firstItemIdx == secondItemIdx) {
+    }
+    if (firstItemIdx == secondItemIdx) {
         return;
+    }
+
+    Node<T>* node1 = head;
+    Node<T>* node2 = head;
+    Node<T>* prevNode1 = nullptr;
+    Node<T>* prevNode2 = nullptr;
+
+    for (int i = 0; i < firstItemIdx; i++) {
+        prevNode1 = node1;
+        node1 = node1->next;
+    }
+    for (int i = 0; i < secondItemIdx; i++) {
+        prevNode2 = node2;
+        node2 = node2->next;
+    }
+
+    if (prevNode1 != nullptr) {
+        prevNode1->next = node2;
     } else {
-        Node<T> *node1 = head;
-        Node<T> *node2 = head;
-        Node<T> *prevnode1 = nullptr;
-        Node<T> *prevnode2 = nullptr;
+        head = node2;
+    }
 
-        for (int i = 0; i < firstItemIdx; i++) {
-            prevnode1 = node1;
-            node1 = node1->next;
-        }
-        for (int i = 0; i < secondItemIdx; i++) {
-            prevnode2 = node2;
-            node2 = node2->next;
-        }
+    if (prevNode2 != nullptr) {
+        prevNode2->next = node1;
+    } else {
+        head = node1;
+    }
 
-        if (prevnode1 != nullptr) {
-            prevnode1->next = node2;
-        } else {
-            head = node2;
-        }
+    Node<T>* temp = node2->next;
+    node2->next = node1->next;
+    node1->next = temp;
 
-        if (prevnode2 != nullptr) {
-            prevnode2->next = node1;
-        } else {
-            head = node1;
-        }
-
-        if (node1->next = nullptr) {
-            tail = node2;
-        }
-        if (node2->next = nullptr) {
-            tail = node1;
-        }
-        Node<T> *tmp = node2->next;
-        node2->next = node1->next;
-        node1->next = tmp;
+    if (node1->next == nullptr) {
+        tail = node1;
+    }
+    if (node2->next == nullptr) {
+        tail = node2;
     }
 }
-
 
 template<class T>
 void Single_Linked_List<T>::print() {
@@ -354,7 +298,7 @@ void Single_Linked_List<T>::print() {
         cout << "LIST IS EMPTY" << endl;
         return;
     }
-    Node<T> *temp = head;
+    Node<T>* temp = head;
     while (temp != nullptr) {
         cout << temp->data << " ";
         temp = temp->next;

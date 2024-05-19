@@ -3,13 +3,13 @@
 using namespace std;
 
 template<class T>
-class node {
+class NodeD {
 public:
     T data;
-    node<T> *next;
-    node<T> *previous;
+    NodeD<T> *next;
+    NodeD<T> *previous;
 
-    node(T d) {
+    NodeD(T d) {
         data = d;
         previous = nullptr;
         next = nullptr;
@@ -19,8 +19,8 @@ public:
 template<class T>
 class doubleLinkedList {
 private:
-    node<T> *head;
-    node<T> *tail;
+    NodeD<T> *head;
+    NodeD<T> *tail;
     int length;
 public:
     doubleLinkedList();
@@ -67,7 +67,7 @@ doubleLinkedList<T>::doubleLinkedList() {
 
 template<class T>
 doubleLinkedList<T>::~doubleLinkedList() {
-    node<T> *temp = head;
+    NodeD<T> *temp = head;
     while (temp != nullptr) {
         head = temp->next;
         delete temp;
@@ -79,7 +79,7 @@ doubleLinkedList<T>::~doubleLinkedList() {
 
 template<class T>
 void doubleLinkedList<T>::insertAtHead(T val) {
-    node<T> *temp = new node<T>(val);
+    NodeD<T> *temp = new NodeD<T>(val);
     temp->next = head;
     if (head != nullptr) {
         head->previous = temp;
@@ -96,7 +96,7 @@ void doubleLinkedList<T>::insertAtTail(T val) {
         insertAtHead(val);
         return;
     }
-    node<T> *temp = new node<T>(val);
+    NodeD<T> *temp = new NodeD<T>(val);
     temp->previous = tail;
     temp->next = nullptr;
     tail->next = temp;
@@ -115,11 +115,11 @@ void doubleLinkedList<T>::insertAt(T val, int index) {
     } else if (index == length) {
         insertAtTail(val);
     } else {
-        node<T> *current = head;
+        NodeD<T> *current = head;
         for (int i = 0; i < index; i++) {
             current = current->next;
         }
-        node<T> *temp = new node<T>(val);
+        NodeD<T> *temp = new NodeD<T>(val);
         temp->next = current;
         temp->previous = current->previous;
         current->previous->next = temp;
@@ -134,7 +134,7 @@ void doubleLinkedList<T>::removeAtHead() {
         cout << "The list is empty" << endl;
         return;
     }
-    node<T> *temp = head;
+    NodeD<T> *temp = head;
     if (length == 1) {
         head = nullptr;
         tail = nullptr;
@@ -152,7 +152,7 @@ void doubleLinkedList<T>::removeAtTail() {
         cout << "The list is empty" << endl;
         return;
     }
-    node<T> *temp = tail;
+    NodeD<T> *temp = tail;
     if (length == 1) {
         head = nullptr;
         tail = nullptr;
@@ -175,7 +175,7 @@ void doubleLinkedList<T>::removeAt(int index) {
     } else if (index == length - 1) {
         removeAtTail();
     } else {
-        node<T> *current = head;
+        NodeD<T> *current = head;
         for (int i = 0; i < index; i++) {
             current = current->next;
         }
@@ -188,7 +188,7 @@ void doubleLinkedList<T>::removeAt(int index) {
 
 template<class T>
 void doubleLinkedList<T>::print() {
-    node<T> *current = head;
+    NodeD<T> *current = head;
     while (current != nullptr) {
         cout << current->data << " ";
         current = current->next;
@@ -202,7 +202,7 @@ T doubleLinkedList<T>::retrieveAt(int index) {
         cout << "Index out of range\n";
         return -1;  // Assuming T can be compared with -1. This may not be appropriate for all types of T.
     } else {
-        node<T> *temp = head;
+        NodeD<T> *temp = head;
         for (int i = 0; i < index; i++) {
             temp = temp->next;
         }
@@ -216,7 +216,7 @@ void doubleLinkedList<T>::replaceAt(T newVal, int index) {
         cout << "Index out of range\n";
         return;
     } else {
-        node<T> *temp = head;
+        NodeD<T> *temp = head;
         for (int i = 0; i < index; i++) {
             temp = temp->next;
         }
@@ -243,7 +243,7 @@ void doubleLinkedList<T>::clear() {
 
 template<class T>
 bool doubleLinkedList<T>::isExist(T val) {
-    node<T> *temp = head;
+    NodeD<T> *temp = head;
     while (temp != nullptr) {
         if (temp->data == val) {
             return true;
@@ -259,7 +259,7 @@ bool doubleLinkedList<T>::isItemAtEqual(T val, int index) {
         cout << "Invalid Index\n";
         return false;
     }
-    node<T> *temp = head;
+    NodeD<T> *temp = head;
     for (int i = 0; i < index; i++) {
         temp = temp->next;
     }
@@ -274,10 +274,10 @@ void doubleLinkedList<T>::swap(int firstItemIdx, int secondItemIdx) {
     } else if (firstItemIdx == secondItemIdx) {
         return;
     } else {
-        node<T> *node1 = head;
-        node<T> *node2 = head;
-        node<T> *prev_node1 = nullptr;
-        node<T> *prev_node2 = nullptr;
+        NodeD<T> *node1 = head;
+        NodeD<T> *node2 = head;
+        NodeD<T> *prev_node1 = nullptr;
+        NodeD<T> *prev_node2 = nullptr;
 
         //access the node<T> that wanted to swap
         for (int i = 0; i < firstItemIdx; ++i) {
@@ -316,8 +316,8 @@ void doubleLinkedList<T>::swap(int firstItemIdx, int secondItemIdx) {
             tail = node1;
         }
 
-        node<T> *tmp_next = node2->next;
-        node<T> *tmp_pre = node2->previous;
+        NodeD<T> *tmp_next = node2->next;
+        NodeD<T> *tmp_pre = node2->previous;
         node2->next = node1->next;
         node2->previous = node1->previous;
         node1->next = tmp_next;

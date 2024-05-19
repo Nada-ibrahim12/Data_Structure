@@ -1,4 +1,4 @@
-#include "Stack_Queue.cpp"
+#include "Stack_Queue.h"
 #include "DoubleLinkedList.h"
 #include "ArrayList.h"
 
@@ -48,6 +48,7 @@ int main() {
     cout << endl;
     cout << endl;
 
+    /////////////////////
 
     //SINGLE_LINKED_LIST
 
@@ -96,6 +97,7 @@ int main() {
     cout << endl;
     cout << endl;
 
+    /////////////////////
 
     //DOUBLE_LINKED_LIST
 
@@ -154,5 +156,56 @@ int main() {
     DLL.print();
 
 
+    cout << endl;
+    cout << endl;
+    cout << endl;
+
+    /////////////////////
+
+    // STACK
+
+    cout << "Stack Example:\n";
+    Stack<int> stack(5);
+
+    cout << "Pushing elements into the stack:\n";
+    for (int i = 1; i <= 5; ++i) {
+        stack.push(i * 10);
+        cout << "Pushed: " << i * 10 << ", Top: " << stack.top() << ", Size: " << stack.stackSize() << endl;
+    }
+
+    cout << "\nPopping elements from the stack:\n";
+    while (!stack.isEmpty()) {
+        cout << "Popped: " << stack.top() << ", Size: " << stack.stackSize() << endl;
+        stack.pop();
+    }
+
+    cout << "\nStack after popping: ";
+    stack.print();
+
+    cout << endl;
+    cout << endl;
+    cout << endl;
+
+    /////////////////////
+
+    // QUEUE
+
+    cout << "\n\nQueue Example:\n";
+    Queue<int> queue;
+
+    cout << "Enqueuing elements into the queue:\n";
+    for (int i = 1; i <= 5; ++i) {
+        queue.enqueue(i * 10);
+        cout << "Enqueued: " << i * 10 << ", First: " << queue.first() << endl;
+    }
+
+    cout << "\nDequeuing elements from the queue:\n";
+    while (!queue.isEmpty()) {
+        cout << "Dequeued: " << queue.first() << endl;
+        queue.dequeue();
+    }
+
+    cout << "\nQueue after dequeuing: ";
+    queue.print();
     return 0;
 }

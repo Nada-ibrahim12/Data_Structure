@@ -1,4 +1,4 @@
-#include <bits/stdc++.h>
+#include <iostream>
 using namespace std;
 
 template <class T>
@@ -41,28 +41,14 @@ template <class T>
 Circular_Linked_List<T>::Circular_Linked_List()
 {
     head = nullptr;
-    tail = head;
+    tail = nullptr;
     length = 0;
 }
 
 template <class T>
 Circular_Linked_List<T>::~Circular_Linked_List()
 {
-    Node<T> *temp;
-
-    int n = 0;
-
-    while (n < length)
-    {
-        temp = head;
-        head = head->next;
-        delete temp;
-        n++;
-    }
-
-    head = nullptr;
-    tail = nullptr;
-    length = 0;
+    clear();
 }
 
 template <class T>
@@ -74,21 +60,10 @@ bool Circular_Linked_List<T>::isEmpty()
 template <class T>
 void Circular_Linked_List<T>::clear()
 {
-    Node<T> *temp;
-    Node<T> *current = head;
-
-    int n = 0;
-
-    while (n < length)
+    while (length > 0)
     {
-        temp = current;
-        current = current->next;
-        delete temp;
-        n++;
+        removeAtHead();
     }
-    head = nullptr;
-    tail = nullptr;
-    length = 0;
 }
 
 template <class T>
@@ -96,14 +71,15 @@ void Circular_Linked_List<T>::insertAtHead(T val)
 {
     Node<T> *temp = new Node<T>;
     temp->data = val;
-    temp->next = head;
-    head = temp;
-    if (tail == nullptr)
+    if (length == 0)
     {
-        tail = temp;
+        head = tail = temp;
+        temp->next = head;
     }
     else
     {
+        temp->next = head;
+        head = temp;
         tail->next = head;
     }
     length++;
@@ -114,16 +90,16 @@ void Circular_Linked_List<T>::insertAtTail(T val)
 {
     Node<T> *temp = new Node<T>;
     temp->data = val;
-    temp->next = head;
-    if (head == nullptr)
+    if (length == 0)
     {
-        head = temp;
-        tail = temp;
+        head = tail = temp;
+        temp->next = head;
     }
     else
     {
         tail->next = temp;
         tail = temp;
+        tail->next = head;
     }
     length++;
 }
@@ -162,15 +138,18 @@ void Circular_Linked_List<T>::insertAt(T val, int index)
 template <class T>
 bool Circular_Linked_List<T>::isExist(T val)
 {
+    if (length == 0) return false;
+
     Node<T> *current = head;
-    while (current != nullptr)
+    do
     {
         if (current->data == val)
         {
             return true;
         }
         current = current->next;
-    }
+    } while (current != head);
+
     return false;
 }
 
@@ -229,24 +208,22 @@ void Circular_Linked_List<T>::removeAt(int index)
 template <class T>
 void Circular_Linked_List<T>::removeAtHead()
 {
-    Node<T> *temp = head;
     if (length == 0)
     {
         cout << "List is empty" << endl;
         return;
     }
-    else if (length == 1)
+    Node<T> *temp = head;
+    if (length == 1)
     {
-        head = nullptr;
-        tail = nullptr;
-        delete temp;
+        head = tail = nullptr;
     }
     else
     {
-        tail->next = head->next;
         head = head->next;
-        delete temp;
+        tail->next = head;
     }
+    delete temp;
     length--;
 }
 
@@ -360,11 +337,11 @@ void Circular_Linked_List<T>::swap(int firstItemIdx, int secondItemIdx)
     node2->next = node1->next;
     node1->next = temp;
 
-    if (node1->next == nullptr)
+    if (node1->next == head)
     {
         tail = node1;
     }
-    if (node2->next == nullptr)
+    if (node2->next == head)
     {
         tail = node2;
     }
@@ -379,16 +356,21 @@ void Circular_Linked_List<T>::print()
         return;
     }
     Node<T> *temp = head;
-    while (temp != nullptr)
+    do
     {
         cout << temp->data << " ";
         temp = temp->next;
-    }
+    } while (temp != head);
     cout << endl;
 }
 
 template <class T>
 T Circular_Linked_List<T>::first()
 {
+    if (head == nullptr)
+    {
+        cout << "List is empty" << endl;
+        return T(); // Return default value of T
+    }
     return head->data;
 }

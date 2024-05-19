@@ -1,5 +1,6 @@
 #include "Stack_Queue.h"
 #include "DoubleLinkedList.h"
+#include "CircularLinkedList.h"
 #include "ArrayList.h"
 
 using namespace std;
@@ -154,6 +155,72 @@ int main() {
     cout << DLL.isEmpty() <<endl;
     cout << "After clearing the list: ";
     DLL.print();
+
+
+
+    cout << endl;
+    cout << endl;
+    cout << endl;
+
+    /////////////////////
+
+    // CIRCULAR_LINKED_LIST
+
+    cout << "Example for Circular linked list" << endl;
+    Circular_Linked_List<int> cll;
+
+    // Insert elements at the head
+    cll.insertAtHead(10);
+    cll.insertAtHead(20);
+    cll.insertAtHead(30);
+
+    cout << "List after inserting elements at head: ";
+    cll.print(); // Should print: 30 20 10
+
+    // Insert elements at the tail
+    cll.insertAtTail(40);
+    cll.insertAtTail(50);
+
+    cout << "List after inserting elements at tail: ";
+    cll.print(); // Should print: 30 20 10 40 50
+
+    // Insert elements at specific positions
+    cll.insertAt(25, 2);
+    cll.insertAt(35, 4);
+
+    cout << "List after inserting elements at specific positions: ";
+    cll.print(); // Should print: 30 20 25 10 35 40 50
+
+    // Check if elements exist in the list
+    cout << "Does 25 exist in the list? " << (cll.isExist(25) ? "Yes" : "No") << endl; // Should print: Yes
+    cout << "Does 100 exist in the list? " << (cll.isExist(100) ? "Yes" : "No") << endl; // Should print: No
+
+    // Retrieve element at a specific index
+    cout << "Element at index 3: " << cll.retrieveAt(3) << endl; // Should print: 10
+
+    // Replace element at a specific index
+    cll.replaceAt(45, 4);
+    cout << "List after replacing element at index 4: ";
+    cll.print(); // Should print: 30 20 25 10 45 40 50
+
+    // Remove element at a specific index
+    cll.removeAt(2);
+    cout << "List after removing element at index 2: ";
+    cll.print(); // Should print: 30 20 10 45 40 50
+
+    // Swap elements
+    cll.swap(1, 4);
+    cout << "List after swapping elements at indexes 1 and 4: ";
+    cll.print(); // Should print: 30 40 10 45 20 50
+
+    // Get the size of the list
+    cout << "Size of the list: " << cll.linkedListSize() << endl; // Should print: 6
+
+    // Clear the list
+    cll.clear();
+    cout << "List after clearing all elements: ";
+    cll.print(); // Should print: LIST IS EMPTY
+
 
 
     cout << endl;

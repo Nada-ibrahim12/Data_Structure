@@ -1,53 +1,38 @@
-#include <iostream>
+#include <bits/stdc++.h>
 using namespace std;
 
 template<class T>
 struct Node {
     T data;
-    Node<T>* next;
+    Node<T> *next;
 };
 
 template<class T>
 class Single_Linked_List {
 private:
-    Node<T>* head;
-    Node<T>* tail;
+    Node<T> *head;
+    Node<T> *tail;
     int length;
 
 public:
     Single_Linked_List();
-
     ~Single_Linked_List();
-
     bool isEmpty();
-
     void clear();
-
     void insertAtHead(T val);
-
     void insertAtTail(T val);
-
     void insertAt(T val, int index);
-
     bool isExist(T val);
-
     bool isItemAtEqual(T val, int index);
-
     int linkedListSize();
-
     void removeAt(int index);
-
     void removeAtHead();
-
     void removeAtTail();
-
     void replaceAt(T newVal, int index);
-
     T retrieveAt(int index);
-
     void swap(int firstItemIdx, int secondItemIdx);
-
     void print();
+    T first();
 };
 
 
@@ -70,7 +55,7 @@ bool Single_Linked_List<T>::isEmpty() {
 
 template<class T>
 void Single_Linked_List<T>::clear() {
-    Node<T>* temp;
+    Node<T> *temp;
     while (head != nullptr) {
         temp = head;
         head = head->next;
@@ -82,7 +67,7 @@ void Single_Linked_List<T>::clear() {
 
 template<class T>
 void Single_Linked_List<T>::insertAtHead(T val) {
-    Node<T>* temp = new Node<T>;
+    Node<T> *temp = new Node<T>;
     temp->data = val;
     temp->next = head;
     head = temp;
@@ -94,7 +79,7 @@ void Single_Linked_List<T>::insertAtHead(T val) {
 
 template<class T>
 void Single_Linked_List<T>::insertAtTail(T val) {
-    Node<T>* temp = new Node<T>;
+    Node<T> *temp = new Node<T>;
     temp->data = val;
     temp->next = nullptr;
     if (head == nullptr) {
@@ -118,9 +103,9 @@ void Single_Linked_List<T>::insertAt(T val, int index) {
     } else if (index == length) {
         insertAtTail(val);
     } else {
-        Node<T>* newNode = new Node<T>;
+        Node<T> *newNode = new Node<T>;
         newNode->data = val;
-        Node<T>* current = head;
+        Node<T> *current = head;
         for (int i = 0; i < index - 1; i++) {
             current = current->next;
         }
@@ -132,7 +117,7 @@ void Single_Linked_List<T>::insertAt(T val, int index) {
 
 template<class T>
 bool Single_Linked_List<T>::isExist(T val) {
-    Node<T>* current = head;
+    Node<T> *current = head;
     while (current != nullptr) {
         if (current->data == val) {
             return true;
@@ -148,7 +133,7 @@ bool Single_Linked_List<T>::isItemAtEqual(T val, int index) {
         cout << "Index out of range" << endl;
         return false;
     }
-    Node<T>* current = head;
+    Node<T> *current = head;
     for (int i = 0; i < index; i++) {
         current = current->next;
     }
@@ -171,11 +156,11 @@ void Single_Linked_List<T>::removeAt(int index) {
     } else if (index == length - 1) {
         removeAtTail();
     } else {
-        Node<T>* current = head;
+        Node<T> *current = head;
         for (int i = 0; i < index - 1; i++) {
             current = current->next;
         }
-        Node<T>* temp = current->next;
+        Node<T> *temp = current->next;
         current->next = temp->next;
         delete temp;
         length--;
@@ -188,7 +173,7 @@ void Single_Linked_List<T>::removeAtHead() {
         cout << "List is empty" << endl;
         return;
     }
-    Node<T>* temp = head;
+    Node<T> *temp = head;
     head = head->next;
     delete temp;
     length--;
@@ -207,7 +192,7 @@ void Single_Linked_List<T>::removeAtTail() {
         delete head;
         head = tail = nullptr;
     } else {
-        Node<T>* current = head;
+        Node<T> *current = head;
         while (current->next != tail) {
             current = current->next;
         }
@@ -224,7 +209,7 @@ void Single_Linked_List<T>::replaceAt(T newVal, int index) {
         cout << "Index out of range" << endl;
         return;
     }
-    Node<T>* current = head;
+    Node<T> *current = head;
     for (int i = 0; i < index; i++) {
         current = current->next;
     }
@@ -237,7 +222,7 @@ T Single_Linked_List<T>::retrieveAt(int index) {
         cout << "Index out of range" << endl;
         return T();  // Return default value of T
     }
-    Node<T>* current = head;
+    Node<T> *current = head;
     for (int i = 0; i < index; i++) {
         current = current->next;
     }
@@ -254,10 +239,10 @@ void Single_Linked_List<T>::swap(int firstItemIdx, int secondItemIdx) {
         return;
     }
 
-    Node<T>* node1 = head;
-    Node<T>* node2 = head;
-    Node<T>* prevNode1 = nullptr;
-    Node<T>* prevNode2 = nullptr;
+    Node<T> *node1 = head;
+    Node<T> *node2 = head;
+    Node<T> *prevNode1 = nullptr;
+    Node<T> *prevNode2 = nullptr;
 
     for (int i = 0; i < firstItemIdx; i++) {
         prevNode1 = node1;
@@ -280,7 +265,7 @@ void Single_Linked_List<T>::swap(int firstItemIdx, int secondItemIdx) {
         head = node1;
     }
 
-    Node<T>* temp = node2->next;
+    Node<T> *temp = node2->next;
     node2->next = node1->next;
     node1->next = temp;
 
@@ -298,10 +283,15 @@ void Single_Linked_List<T>::print() {
         cout << "LIST IS EMPTY" << endl;
         return;
     }
-    Node<T>* temp = head;
+    Node<T> *temp = head;
     while (temp != nullptr) {
         cout << temp->data << " ";
         temp = temp->next;
     }
     cout << endl;
+}
+
+template<class T>
+T Single_Linked_List<T>::first() {
+    return head->data;
 }

@@ -268,7 +268,7 @@ bool doubleLinkedList<T>::isItemAtEqual(T val, int index) {
 
 template<class T>
 void doubleLinkedList<T>::swap(int firstItemIdx, int secondItemIdx) {
-    if (firstItemIdx < 0 || firstItemIdx >= count || secondItemIdx < 0 || secondItemIdx >= count) {
+    if (firstItemIdx < 0 || firstItemIdx >= length || secondItemIdx < 0 || secondItemIdx >= length) {
         cout << "Invalid indexes\n";
         return;
     } else if (firstItemIdx == secondItemIdx) {

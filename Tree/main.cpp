@@ -1,4 +1,5 @@
 #include "BST.h"
+#include "AVL.h"
 #include "Heap.h"
 
 using namespace std;
@@ -36,7 +37,6 @@ int main() {
     bst.remove(removeKey);
     cout << "In-order traversal after removing " << removeKey << ": ";
     bst.inOrderCall();
-    cout << endl;
 
     cout << endl;
     cout << endl;
@@ -50,19 +50,42 @@ int main() {
         heap.insert_max(val);
     }
 
-     cout << "Initial Max-Heap: ";
+    cout << "Initial Max-Heap: ";
     heap.display();
 
     // Insert an additional element into the max heap
     heap.insert_max(25);
-     cout << "After inserting 25: ";
+    cout << "After inserting 25: ";
     heap.display();
 
     // Extract the maximum element from the max heap
     int maxElement = heap.heap_extract_max();
-     cout << "Extracted Max Element: " << maxElement <<  endl;
-     cout << "After extracting max: ";
+    cout << "Extracted Max Element: " << maxElement << endl;
+    cout << "After extracting max: ";
     heap.display();
 
+    cout << endl;
+    cout << endl;
+    cout << endl;
+
+
+    AVL<int> tree;
+
+    tree.insert(10);
+    tree.insert(20);
+    tree.insert(30);
+    tree.insert(40);
+    tree.insert(50);
+    tree.insert(25);
+
+    cout << "Inorder traversal of the constructed AVL tree is:" << endl;
+    tree.inOrder();
+
+    tree.remove(40);
+
+    cout << "Inorder traversal after deletion of 40:" << endl;
+    tree.inOrder();
+
     return 0;
+
 }

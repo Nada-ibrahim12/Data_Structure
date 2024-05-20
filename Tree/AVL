@@ -24,7 +24,15 @@ public:
 
     AVLNode<T> *insertNode(AVLNode<T> *node, T key);
 
+    void insert(T key) {
+        root = insertNode(root, key);
+    }
+
     AVLNode<T> *deleteNode(AVLNode<T> *root, T key);
+
+    void remove(T key) {
+        root = deleteNode(root, key);
+    }
 
     AVLNode<T> *getRoot() { return root; }
 
@@ -49,6 +57,11 @@ public:
     AVLNode<T> *minNode(AVLNode<T> *node);
 
     void inOrderTraversal(AVLNode<T> *root);
+
+    void inOrder() {
+        inOrderTraversal(root);
+        cout << endl;
+    }
 };
 
 

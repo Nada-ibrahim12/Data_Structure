@@ -106,6 +106,8 @@ void Single_Linked_List<T>::insertAt(T val, int index) {
         NodeS<T> *newNode = new NodeS<T>;
         newNode->data = val;
         NodeS<T> *current = head;
+        // A for loop is used to move the current pointer
+        // to the node just before the target index
         for (int i = 0; i < index - 1; i++) {
             current = current->next;
         }

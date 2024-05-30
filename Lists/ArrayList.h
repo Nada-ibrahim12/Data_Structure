@@ -144,6 +144,3 @@ void ArrayList<T>::resize(int newCapacity) {
     array = newArray;
     capacity = newCapacity;
 }
-capacity = newCapacity;
-capacity = newCapacity;
-capacity = newCapacity;

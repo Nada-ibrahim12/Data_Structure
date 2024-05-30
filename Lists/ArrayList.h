@@ -27,7 +27,7 @@ public:
 template<typename T>
 ArrayList<T>::ArrayList(int initialCapacity) : size(0) {
     if (initialCapacity < 0) {
-        cout << "You entered an invalid size, setting default capacity to 50" << endl;
+        cout << "You entered an invalid size, setting default capacity to 10" << endl;
         initialCapacity = 10;
     }
     capacity = initialCapacity;

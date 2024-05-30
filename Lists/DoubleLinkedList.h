@@ -236,7 +236,7 @@ int doubleLinkedList<T>::linkedListSize() {
 
 template<class T>
 void doubleLinkedList<T>::clear() {
-    while (!isEmpty()) {
+    while (length != 0) {
         removeAtHead();
     }
 }

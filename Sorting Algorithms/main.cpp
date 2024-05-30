@@ -10,11 +10,15 @@ int main()
     sorter.selection(arr1, n1);
     sorter.display(arr1, n1);
 
+    cout << endl;
+
     int arr2[] = {12, 11, 13, 5, 6};
     int n2 = sizeof(arr2) / sizeof(arr2[0]);
     cout << "Insertion Sort: ";
     sorter.insertion(arr2, n2);
     sorter.display(arr2, n2);
+
+    cout << endl;
 
     int arr3[] = {5, 1, 4, 2, 8};
     int n3 = sizeof(arr3) / sizeof(arr3[0]);
@@ -22,11 +26,15 @@ int main()
     sorter.bubble(arr3, n3);
     sorter.display(arr3, n3);
 
+    cout << endl;
+
     int arr4[] = {12, 34, 54, 2, 3};
     int n4 = sizeof(arr4) / sizeof(arr4[0]);
     cout << "Shell Sort: ";
     sorter.shell(arr4, n4);
     sorter.display(arr4, n4);
+
+    cout << endl;
 
     int arr5[] = {10, 7, 8, 9, 1, 5};
     int n5 = sizeof(arr5) / sizeof(arr5[0]);
@@ -34,11 +42,15 @@ int main()
     sorter.quick(arr5, 0, n5 - 1);
     sorter.display(arr5, n5);
 
+    cout << endl;
+
     int arr6[] = {12, 11, 13, 5, 6, 7};
     int n6 = sizeof(arr6) / sizeof(arr6[0]);
     cout << "Merge Sort: ";
     sorter.mergesort(arr6, 0, n6 - 1);
     sorter.display(arr6, n6);
+
+    cout << endl;
 
     int arr7[] = {4, 2, 2, 8, 3, 3, 1};
     int n7 = sizeof(arr7) / sizeof(arr7[0]);

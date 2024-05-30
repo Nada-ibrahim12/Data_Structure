@@ -36,7 +36,7 @@ public:
     }
 
 };
-
+ // we can make circular queue
 template<class T>
 class Queue : Single_Linked_List<T>{
 public:

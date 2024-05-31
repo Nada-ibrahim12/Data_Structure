@@ -127,59 +127,54 @@ void Sort_Algorithms::quick(int a[], int l, int r)
         quick(a, i, r);
 }
  // Divide and conquer
-void Sort_Algorithms::mergesort(int a[], int start, int end)
-{
-    if (start < end)
-        return;
-    int mid = start + (end - start) / 2;
-    mergesort(a, start, mid);
-    mergesort(a, mid + 1, end);
-    merge(a, start, mid, end);
-}
+ void Sort_Algorithms::mergesort(int a[], int start, int end) {
+     if (start >= end)
+         return;
+     int mid = start + (end - start) / 2;
+     mergesort(a, start, mid);
+     mergesort(a, mid + 1, end);
+     merge(a, start, mid, end);
+ }
 
-void Sort_Algorithms::merge(int a[], int start, int mid, int end)
-{
-    // get size of 2 subarrays
-    int size1 = mid - start + 1; 
+void Sort_Algorithms::merge(int a[], int start, int mid, int end) {
+    // Get size of 2 subarrays
+    int size1 = mid - start + 1;
     int size2 = end - mid;
 
-    int sub1[size1], sub2[size2];
+    // Use vectors for automatic memory management
+    std::vector<int> sub1(size1), sub2(size2);
 
-    // copy the data to each array
-    for (int i = 0; i < size1; i++)
-    {
+    // Copy the data to each array
+    for (int i = 0; i < size1; i++) {
         sub1[i] = a[start + i];
     }
-    for (int i = 0; i < size2; i++)
-    {
+    for (int i = 0; i < size2; i++) {
         sub2[i] = a[mid + 1 + i];
     }
 
-    // indexmid for the original array
+    // Merge the subarrays back into the original array
     int index1 = 0, index2 = 0, indexmid = start;
-    while (index1 < size1 && index2 < size2)
-    {
-        if (sub1[index1] <= sub2[index2])
-        {
+    while (index1 < size1 && index2 < size2) {
+        if (sub1[index1] <= sub2[index2]) {
             a[indexmid] = sub1[index1];
             index1++;
-        }
-        else
-        {
+        } else {
             a[indexmid] = sub2[index2];
             index2++;
         }
         indexmid++;
     }
-    while (index1 < size1)
-    {
+
+    // Copy any remaining elements of sub1, if any
+    while (index1 < size1) {
         a[indexmid] = sub1[index1];
         index1++;
         indexmid++;
     }
-    while (index2 < size2)
-    {
-        a[indexmid] = sub1[index2];
+
+    // Copy any remaining elements of sub2, if any
+    while (index2 < size2) {
+        a[indexmid] = sub2[index2];
         index2++;
         indexmid++;
     }

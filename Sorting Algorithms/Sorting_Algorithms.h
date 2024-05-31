@@ -142,7 +142,7 @@ void Sort_Algorithms::merge(int a[], int start, int mid, int end) {
     int size2 = end - mid;
 
     // Use vectors for automatic memory management
-    std::vector<int> sub1(size1), sub2(size2);
+    vector<int> sub1(size1), sub2(size2);
 
     // Copy the data to each array
     for (int i = 0; i < size1; i++) {

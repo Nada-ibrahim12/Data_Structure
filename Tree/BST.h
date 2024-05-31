@@ -50,6 +50,10 @@ private:
 public:
     BST() : root(nullptr) {}
 
+    void clear() {
+        root = nullptr;
+    }
+
     bool isEmpty() {
         return (root == nullptr);
     }

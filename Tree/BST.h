@@ -1,5 +1,6 @@
 #include <iostream>
-
+#include <queue>
+#include <bits/stdc++.h>
 using namespace std;
 
 template<class T>
@@ -37,6 +38,7 @@ public:
     void setRight(BSTNode *node) {
         right = node;
     }
+
 };
 
 template<class T>
@@ -76,6 +78,28 @@ public:
     void inOrder(BSTNode<T> *p);
 
     void inOrderCall();
+
+    void Breadth_First_Traversal() {
+        if (!root) {
+            return;
+        }
+
+        std::queue<BSTNode<T>*> que;
+        que.push(root);
+
+        while (!que.empty()) {
+            BSTNode<T>* p = que.front();
+            que.pop();
+
+            cout << p->getKey() << " ";
+            if (p->getLeft()) {
+                que.push(p->getLeft());
+            }
+            if (p->getRight()) {
+                que.push(p->getRight());
+            }
+        }
+    }
 };
 
 template<class T>

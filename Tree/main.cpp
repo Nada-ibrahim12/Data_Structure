@@ -26,6 +26,10 @@ int main() {
     bst.postOrderCall();
     cout << endl;
 
+    cout << "Breadth_First Traversal: ";
+    bst.Breadth_First_Traversal();
+    cout << endl;
+
     int searchKey = 7;
     if (bst.search(searchKey) != nullptr) {
         cout << "Found key: " << searchKey << endl;

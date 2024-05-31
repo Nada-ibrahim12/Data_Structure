@@ -84,7 +84,7 @@ public:
             return;
         }
 
-        std::queue<BSTNode<T>*> que;
+        queue<BSTNode<T>*> que;
         que.push(root);
 
         while (!que.empty()) {
